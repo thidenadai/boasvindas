@@ -1,27 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, TextInput, Modal } from "react-native";
+import React, { useState } from "react";
+import { Text, View, StyleSheet, Button, Modal } from "react-native";
 
 export default function App() {
-  const [name, setName] = useState("");
+  const [visible, setVisible] = useState(false);
 
-  changeTxt = (txtInput) => {
-    setName(`Seja bem vindo, ${txtInput}`);
-  };
-
-  useEffect(() => {
-    if (name.length === 26) {
-      alert("limite de caracteres");
+  visModal = (vis) => {
+    if (!visible) {
+      setVisible(vis);
+    } else {
+      setVisible(vis);
     }
-  }, [name]);
+  };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.inputname}
-        placeholder="Digite seu nome"
-        onChangeText={changeTxt}
-      />
-      <Text style={styles.boavindanome}>{name}</Text>
+      <Button title="Abrir modal" onPress={() => visModal(true)} />
+      {/* true or false*/}
+
+      <Modal transparent={false} animationType="fade" visible={visible}>
+        <View style={styles.modalalg}>
+          <View style={styles.modal1}>
+            <Button title="fechar modal" onPress={() => visModal(false)} />
+            <Text style={styles.txt}> Thiago </Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -33,18 +36,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  inputname: {
+  modal1: {
+    width: "80%",
+    height: "80%",
+    backgroundColor: "orange",
     alignItems: "center",
     justifyContent: "center",
-    width: 300,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
-    margin: 10,
   },
-  boavindanome: {
-    alignItems: "center",
+  txt: {
+    fontSize: 20,
+  },
+  modalalg: {
     justifyContent: "center",
-    fontSize: 30,
+    alignItems: "center",
+    flex: 1,
   },
 });
